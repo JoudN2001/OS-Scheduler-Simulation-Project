@@ -1,12 +1,161 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CPU Sheduler Similation</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <title>CPU Scheduling Simulater</title>
+    <link href="style.css" rel="stylesheet" />
   </head>
+
   <body>
-    <script src="js/script.js" type="module"></script>
+    <div class="page-container">
+      <!--Title-->
+      <header>
+        <h1>CPU Scheduler</h1>
+      </header>
+      <!--Description-->
+      <div class="Description-container">
+        <h2>Description</h2>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus,
+          numquam adipisci commodi alias doloremque ipsam omnis enim dolorem
+          laboriosam, nihil obcaecati autem expedita delectus tenetur doloribus
+          nulla, eos iste ut?
+        </p>
+      </div>
+      <!--adding processes and chosing algorithm-->
+      <div class="container" id="input-process-container">
+        <h3>Input Process</h3>
+
+        <select id="algoSelect">
+          <option value="fcfs">FCFS</option>
+          <option value="sjf">SJF</option>
+          <option value="priority">Priority</option>
+          <option value="rr">Round Robin (RR)</option>
+        </select>
+
+        <span class="tooltip"
+          >i<span class="tooltiptext" id="algoTooltip"> </span
+        ></span>
+        <div class="slider-wrapper" id="quantumContainer">
+          <label class="qu-label" for="quantum">Quantum Time:</label>
+          <div class="slider-container" style="position: relative">
+            <input
+              class="Quantum-slider"
+              type="range"
+              id="quantum"
+              min="1"
+              max="15"
+              value="3"
+            />
+            <span class="slider-start">0</span>
+            <span class="slider-end">15</span>
+            <span id="valueLabel" style="position: absolute; top: -25px"
+              >3</span
+            >
+          </div>
+        </div>
+
+        <hr />
+        <div class="input-column">
+          <div class="row">
+            <label class="pcb-label" for="pidInput">PID</label>
+            <input id="pidInput" type="text" value="P3" />
+          </div>
+
+          <div class="row">
+            <label class="pcb-label" for="arrivalTimeInput">AT</label>
+            <input id="arrivalTimeInput" type="number" min="0" value="3" />
+          </div>
+
+          <div class="row">
+            <label class="pcb-label" for="burstInput">Burst</label>
+            <input id="burstInput" type="number" min="1" value="6" />
+          </div>
+
+          <div class="row">
+            <label class="pcb-label" for="priorityInput">Priority</label>
+            <input id="priorityInput" type="number" min="1" value="1" />
+          </div>
+        </div>
+        <hr />
+
+        <div class="actions">
+          <button class="process-btn" id="addProcessBtn">Add Process</button>
+          <button class="process-btn" id="clearProcessesBtn">
+            Clear All Processes
+          </button>
+        </div>
+      </div>
+      <!--table to show the added processes and run them using the chosen algorithm-->
+      <div class="container" id="processTableContainer">
+        <h3>Processes Query</h3>
+        <table id="process-table">
+          <thead>
+            <tr>
+              <th>PID</th>
+              <th>AT</th>
+              <th>Burst</th>
+              <th>Priority</th>
+            </tr>
+          </thead>
+          <tbody id="ProcessTableBody"></tbody>
+        </table>
+        <button class="process-btn" id="RunBtn">Run</button>
+      </div>
+      <!--Gantt chart section-->
+      <div class="container" id="ganttChartContainer">
+        <h3>Gantt-Chart</h3>
+        <div id="gantt-chart-display"></div>
+      </div>
+      <!--metrics section to show arrival,turnarounf,waiting and response times-->
+      <div class="container" id="metricsContainer">
+        <h3>Metrics Table</h3>
+
+        <p class="qt-display">QT = <span id="quantumTimeValue">3</span></p>
+
+        <table class="Metrics-table">
+          <thead>
+            <tr>
+              <th>PID</th>
+              <th>AT</th>
+              <th>BT</th>
+              <th>Priority</th>
+              <th>RT</th>
+              <th>WT</th>
+              <th>TT</th>
+            </tr>
+          </thead>
+          <tbody id="metricsTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="container" id="summarySection">
+        <h3>Summary</h3>
+
+        <div class="summary-group-header" id="summaryHeader">
+          <span id="summaryGroupName">list PID`s here</span>
+
+          <button id="toggleSummaryBtn">
+            <span id="toggleIcon">&#9660;</span>
+          </button>
+        </div>
+
+        <div id="summaryContent" class="group-content hidden">
+          <table id="summaryMetricsTable" class="summary">
+            <thead>
+              <tr>
+                <th>AVG. TAT</th>
+                <th>AVG. WT</th>
+                <th>AVG. RT</th>
+              </tr>
+            </thead>
+            <tbody id="summaryTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
   </body>
 </html>
