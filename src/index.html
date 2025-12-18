@@ -3,19 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CPU Scheduling Simulater</title>
-    <link href="style.css" rel="stylesheet" />
+    <title>CPU Scheduler</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
 
   <body>
-    <div class="page-container">
-      <!--Title-->
-      <header>
-        <h1>CPU Scheduler</h1>
-      </header>
+    <!--Title-->
+    <header>
+      <h1>CPU Scheduler</h1>
+    </header>
+    <main class="main-container">
       <!--Description-->
       <div class="Description-container">
+        <div class="card-title">
         <h2>Description</h2>
+        </div>
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus,
           numquam adipisci commodi alias doloremque ipsam omnis enim dolorem
@@ -25,21 +28,27 @@
       </div>
       <!--adding processes and chosing algorithm-->
       <div class="container" id="input-process-container">
-        <h3>Input Process</h3>
+        <div class="card-title">
+          <h3>Input Process</h3>
+        </div>
+        <hr />
+        <div class="selector-section">
+          <select id="algoSelect">
+            <option value="fcfs">FCFS</option>
+            <option value="sjf">SJF</option>
+            <option value="priority">Priority</option>
+            <option value="rr">Round Robin (RR)</option>
+          </select>
 
-        <select id="algoSelect">
-          <option value="fcfs">FCFS</option>
-          <option value="sjf">SJF</option>
-          <option value="priority">Priority</option>
-          <option value="rr">Round Robin (RR)</option>
-        </select>
+          <span class="tooltip">
+            i
+            <span class="tooltiptext" id="algoTooltip"></span>
+          </span>
+        </div>
+        <div class="slider-container" id="quantumContainer">
+          <label class="qu-label">Quantum Time:</label>
 
-        <span class="tooltip"
-          >i<span class="tooltiptext" id="algoTooltip"> </span
-        ></span>
-        <div class="slider-wrapper" id="quantumContainer">
-          <label class="qu-label" for="quantum">Quantum Time:</label>
-          <div class="slider-container" style="position: relative">
+          <div class="quantum-slider-container">
             <input
               class="Quantum-slider"
               type="range"
@@ -50,9 +59,7 @@
             />
             <span class="slider-start">0</span>
             <span class="slider-end">15</span>
-            <span id="valueLabel" style="position: absolute; top: -25px"
-              >3</span
-            >
+            <span id="valueLabel">3</span>
           </div>
         </div>
 
@@ -89,7 +96,10 @@
       </div>
       <!--table to show the added processes and run them using the chosen algorithm-->
       <div class="container" id="processTableContainer">
-        <h3>Processes Query</h3>
+        <div class="card-title">
+          <h3>Processes Query</h3>
+        </div>
+        <hr />
         <table id="process-table">
           <thead>
             <tr>
@@ -105,15 +115,20 @@
       </div>
       <!--Gantt chart section-->
       <div class="container" id="ganttChartContainer">
-        <h3>Gantt-Chart</h3>
+        <div class="card-title">
+          <h3>Gantt-Chart</h3>
+        </div>
+        <hr />
         <div id="gantt-chart-display"></div>
       </div>
       <!--metrics section to show arrival,turnarounf,waiting and response times-->
       <div class="container" id="metricsContainer">
-        <h3>Metrics Table</h3>
-
+        <div class="card-title">
+          <h3>Metrics Table</h3>
+        </div>
+        <hr />
         <p class="qt-display">QT = <span id="quantumTimeValue">3</span></p>
-
+        <div class="table-container">
         <table class="Metrics-table">
           <thead>
             <tr>
@@ -128,11 +143,14 @@
           </thead>
           <tbody id="metricsTableBody"></tbody>
         </table>
+        </div>
       </div>
 
       <div class="container" id="summarySection">
-        <h3>Summary</h3>
-
+        <div class="card-title">
+          <h3>Summary</h3>
+        </div>
+        <hr />
         <div class="summary-group-header" id="summaryHeader">
           <span id="summaryGroupName">list PID`s here</span>
 
@@ -154,7 +172,11 @@
           </table>
         </div>
       </div>
-    </div>
+    </main>
+
+    <footer>
+      <span>© 2025 CPU Scheduler. All rights reserved.</span>
+    </footer>
 
     <script src="script.js"></script>
   </body>
