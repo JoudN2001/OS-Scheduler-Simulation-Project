@@ -1,6 +1,7 @@
 export function FCFS(processes) {
   const sorted = [...processes].sort((a, b) => a.arrivalTime - b.arrivalTime);
   const solved = [];
+  const gantt = [];
   let currentTime = 0;
 
   sorted.forEach((p) => {
@@ -22,8 +23,13 @@ export function FCFS(processes) {
       responseTime,
       turnaroundTime,
     });
+    gantt.push({
+      processId: p.id,
+      startTime,
+      endTime,
+    });
     currentTime = endTime;
   });
 
-  return solved;
+  return { solved, gantt };
 }

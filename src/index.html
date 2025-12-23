@@ -17,7 +17,7 @@
       <!--Description-->
       <div class="Description-container">
         <div class="card-title">
-        <h2>Description</h2>
+          <h2>Description</h2>
         </div>
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus,
@@ -46,7 +46,9 @@
           </span>
         </div>
         <div class="slider-container" id="quantumContainer">
-          <label class="qu-label">Quantum Time:</label>
+          <label class="qu-label"
+            >Quantum Time: <span id="valueLabel">3</span></label
+          >
 
           <div class="quantum-slider-container">
             <input
@@ -59,7 +61,6 @@
             />
             <span class="slider-start">0</span>
             <span class="slider-end">15</span>
-            <span id="valueLabel">3</span>
           </div>
         </div>
 
@@ -67,22 +68,46 @@
         <div class="input-column">
           <div class="row">
             <label class="pcb-label" for="pidInput">PID</label>
-            <input id="pidInput" type="text" value="P3" />
+            <input
+              id="pidInput"
+              class="input-width"
+              type="text"
+              value="P3"
+              disabled
+            />
           </div>
 
           <div class="row">
             <label class="pcb-label" for="arrivalTimeInput">AT</label>
-            <input id="arrivalTimeInput" type="number" min="0" value="3" />
+            <input
+              id="arrivalTimeInput"
+              class="input-width"
+              type="number"
+              min="0"
+              value="3"
+            />
           </div>
 
           <div class="row">
             <label class="pcb-label" for="burstInput">Burst</label>
-            <input id="burstInput" type="number" min="1" value="6" />
+            <input
+              id="burstInput"
+              class="input-width"
+              type="number"
+              min="1"
+              value="6"
+            />
           </div>
 
           <div class="row">
             <label class="pcb-label" for="priorityInput">Priority</label>
-            <input id="priorityInput" type="number" min="1" value="1" />
+            <input
+              id="priorityInput"
+              class="input-width"
+              type="number"
+              min="1"
+              value="1"
+            />
           </div>
         </div>
         <hr />
@@ -129,20 +154,20 @@
         <hr />
         <p class="qt-display">QT = <span id="quantumTimeValue">3</span></p>
         <div class="table-container">
-        <table class="Metrics-table">
-          <thead>
-            <tr>
-              <th>PID</th>
-              <th>AT</th>
-              <th>BT</th>
-              <th>Priority</th>
-              <th>RT</th>
-              <th>WT</th>
-              <th>TT</th>
-            </tr>
-          </thead>
-          <tbody id="metricsTableBody"></tbody>
-        </table>
+          <table class="Metrics-table">
+            <thead>
+              <tr>
+                <th>PID</th>
+                <th>AT</th>
+                <th>BT</th>
+                <th>Priority</th>
+                <th>RT</th>
+                <th>WT</th>
+                <th>TT</th>
+              </tr>
+            </thead>
+            <tbody id="metricsTableBody"></tbody>
+          </table>
         </div>
       </div>
 
@@ -178,6 +203,6 @@
       <span>© 2025 CPU Scheduler. All rights reserved.</span>
     </footer>
 
-    <script src="script.js"></script>
+    <script type="module" src="js/script.js"></script>
   </body>
 </html>
