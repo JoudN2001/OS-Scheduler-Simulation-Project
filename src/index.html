@@ -1,208 +1,177 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CPU Scheduler</title>
-    <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
 
-  <body>
-    <!--Title-->
-    <header>
-      <h1>CPU Scheduler</h1>
-    </header>
-    <main class="main-container">
-      <!--Description-->
-      <div class="Description-container">
-        <div class="card-title">
-          <h2>Description</h2>
-        </div>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus,
-          numquam adipisci commodi alias doloremque ipsam omnis enim dolorem
-          laboriosam, nihil obcaecati autem expedita delectus tenetur doloribus
-          nulla, eos iste ut?
-        </p>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CPU Scheduler</title>
+  <link rel="stylesheet" href="css/normalize.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <!--Title-->
+  <header>
+    <h1>CPU Scheduler</h1>
+  </header>
+  <main class="main-container">
+    <!--Description-->
+    <div class="Description-container">
+      <div class="card-title">
+        <h2>Description</h2>
       </div>
-      <!--adding processes and chosing algorithm-->
-      <div class="container" id="input-process-container">
-        <div class="card-title">
-          <h3>Input Process</h3>
-        </div>
-        <hr />
-        <div class="selector-section">
-          <select id="algoSelect">
-            <option value="fcfs">FCFS</option>
-            <option value="sjf">SJF</option>
-            <option value="priority">Priority</option>
-            <option value="rr">Round Robin (RR)</option>
-          </select>
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus,
+        numquam adipisci commodi alias doloremque ipsam omnis enim dolorem
+        laboriosam, nihil obcaecati autem expedita delectus tenetur doloribus
+        nulla, eos iste ut?
+      </p>
+    </div>
+    <!--adding processes and chosing algorithm-->
+    <div class="container" id="input-process-container">
+      <div class="card-title">
+        <h3>Input Process</h3>
+      </div>
+      <hr />
+      <div class="selector-section">
+        <select id="algoSelect">
+          <option value="fcfs">FCFS</option>
+          <option value="sjf">SJF</option>
+          <option value="priority">Priority</option>
+          <option value="rr">Round Robin (RR)</option>
+        </select>
 
-          <span class="tooltip">
-            i
-            <span class="tooltiptext" id="algoTooltip"></span>
-          </span>
-        </div>
-        <div class="slider-container" id="quantumContainer">
-          <label class="qu-label"
-            >Quantum Time: <span id="valueLabel">3</span></label
-          >
+        <span class="tooltip">
+          i
+          <span class="tooltiptext" id="algoTooltip"></span>
+        </span>
+      </div>
+      <div class="slider-container" id="quantumContainer">
+        <label class="qu-label">Quantum Time: <span id="valueLabel">3</span></label>
 
-          <div class="quantum-slider-container">
-            <input
-              class="Quantum-slider"
-              type="range"
-              id="quantum"
-              min="1"
-              max="15"
-              value="3"
-            />
-            <span class="slider-start">0</span>
-            <span class="slider-end">15</span>
-          </div>
-        </div>
-
-        <hr />
-        <div class="input-column">
-          <div class="row">
-            <label class="pcb-label" for="pidInput">PID</label>
-            <input
-              id="pidInput"
-              class="input-width"
-              type="text"
-              value="P3"
-              disabled
-            />
-          </div>
-
-          <div class="row">
-            <label class="pcb-label" for="arrivalTimeInput">AT</label>
-            <input
-              id="arrivalTimeInput"
-              class="input-width"
-              type="number"
-              min="0"
-              value="3"
-            />
-          </div>
-
-          <div class="row">
-            <label class="pcb-label" for="burstInput">Burst</label>
-            <input
-              id="burstInput"
-              class="input-width"
-              type="number"
-              min="1"
-              value="6"
-            />
-          </div>
-
-          <div class="row">
-            <label class="pcb-label" for="priorityInput">Priority</label>
-            <input
-              id="priorityInput"
-              class="input-width"
-              type="number"
-              min="1"
-              value="1"
-            />
-          </div>
-        </div>
-        <hr />
-
-        <div class="actions">
-          <button class="process-btn" id="addProcessBtn">Add Process</button>
-          <button class="process-btn" id="clearProcessesBtn">
-            Clear All Processes
-          </button>
+        <div class="quantum-slider-container">
+          <input class="Quantum-slider" type="range" id="quantum" min="1" max="15" value="3" />
+          <span class="slider-start">1</span>
+          <span class="slider-end">15</span>
         </div>
       </div>
-      <!--table to show the added processes and run them using the chosen algorithm-->
-      <div class="container" id="processTableContainer">
-        <div class="card-title">
-          <h3>Processes Query</h3>
+
+      <hr />
+      <div class="input-column">
+        <div class="row">
+          <label class="pcb-label" for="pidInput">PID</label>
+          <input id="pidInput" class="input-width" type="text" value="P1" disabled />
         </div>
-        <hr />
-        <table id="process-table">
+
+        <div class="row">
+          <label class="pcb-label" for="arrivalTimeInput">AT</label>
+          <input id="arrivalTimeInput" class="input-width" type="number" min="0" value="3" />
+        </div>
+
+        <div class="row">
+          <label class="pcb-label" for="burstInput">Burst</label>
+          <input id="burstInput" class="input-width" type="number" min="1" value="6" />
+        </div>
+
+        <div class="row">
+          <label class="pcb-label" for="priorityInput">Priority</label>
+          <input id="priorityInput" class="input-width" type="number" min="1" value="1" />
+        </div>
+      </div>
+      <hr />
+
+      <div class="actions">
+        <button class="process-btn" id="addProcessBtn">Add Process</button>
+        <button class="process-btn" id="clearProcessesBtn">
+          Clear All Processes
+        </button>
+      </div>
+    </div>
+    <!--table to show the added processes and run them using the chosen algorithm-->
+    <div class="container" id="processTableContainer">
+      <div class="card-title">
+        <h3>Processes Query</h3>
+      </div>
+      <hr />
+      <table id="process-table">
+        <thead>
+          <tr>
+            <th>PID</th>
+            <th>AT</th>
+            <th>Burst</th>
+            <th>Priority</th>
+          </tr>
+        </thead>
+        <tbody id="ProcessTableBody"></tbody>
+      </table>
+      <button class="process-btn" id="RunBtn">Run</button>
+    </div>
+    <!--Gantt chart section-->
+    <div class="container" id="ganttChartContainer">
+      <div class="card-title">
+        <h3>Gantt-Chart</h3>
+      </div>
+      <hr />
+      <div id="gantt-chart-display"></div>
+    </div>
+    <!--metrics section to show arrival,turnarounf,waiting and response times-->
+    <div class="container" id="metricsContainer">
+      <div class="card-title">
+        <h3>Metrics Table</h3>
+      </div>
+      <hr />
+      <p class="qt-display">QT = <span id="quantumTimeValue">3</span></p>
+      <div class="table-container">
+        <table class="Metrics-table">
           <thead>
             <tr>
               <th>PID</th>
               <th>AT</th>
-              <th>Burst</th>
+              <th>BT</th>
               <th>Priority</th>
+              <th>RT</th>
+              <th>WT</th>
+              <th>TT</th>
             </tr>
           </thead>
-          <tbody id="ProcessTableBody"></tbody>
+          <tbody id="metricsTableBody"></tbody>
         </table>
-        <button class="process-btn" id="RunBtn">Run</button>
       </div>
-      <!--Gantt chart section-->
-      <div class="container" id="ganttChartContainer">
-        <div class="card-title">
-          <h3>Gantt-Chart</h3>
-        </div>
-        <hr />
-        <div id="gantt-chart-display"></div>
+    </div>
+
+    <div class="container" id="summarySection">
+      <div class="card-title">
+        <h3>Summary</h3>
       </div>
-      <!--metrics section to show arrival,turnarounf,waiting and response times-->
-      <div class="container" id="metricsContainer">
-        <div class="card-title">
-          <h3>Metrics Table</h3>
-        </div>
-        <hr />
-        <p class="qt-display">QT = <span id="quantumTimeValue">3</span></p>
-        <div class="table-container">
-          <table class="Metrics-table">
-            <thead>
-              <tr>
-                <th>PID</th>
-                <th>AT</th>
-                <th>BT</th>
-                <th>Priority</th>
-                <th>RT</th>
-                <th>WT</th>
-                <th>TT</th>
-              </tr>
-            </thead>
-            <tbody id="metricsTableBody"></tbody>
-          </table>
-        </div>
+      <hr />
+      <div class="summary-group-header" id="summaryHeader">
+        <span id="summaryGroupName">list PID`s here</span>
+
+        <button id="toggleSummaryBtn">
+          <span id="toggleIcon">&#9660;</span> <!--△ 	&#9651;	&#x25B3; -->
+        </button>
       </div>
 
-      <div class="container" id="summarySection">
-        <div class="card-title">
-          <h3>Summary</h3>
-        </div>
-        <hr />
-        <div class="summary-group-header" id="summaryHeader">
-          <span id="summaryGroupName">list PID`s here</span>
-
-          <button id="toggleSummaryBtn">
-            <span id="toggleIcon">&#9660;</span>
-          </button>
-        </div>
-
-        <div id="summaryContent" class="group-content hidden">
-          <table id="summaryMetricsTable" class="summary">
-            <thead>
-              <tr>
-                <th>AVG. TAT</th>
-                <th>AVG. WT</th>
-                <th>AVG. RT</th>
-              </tr>
-            </thead>
-            <tbody id="summaryTableBody"></tbody>
-          </table>
-        </div>
+      <div id="summaryContent" class="group-content hidden">
+        <table id="summaryMetricsTable" class="summary">
+          <thead>
+            <tr>
+              <th>AVG. TAT</th>
+              <th>AVG. WT</th>
+              <th>AVG. RT</th>
+            </tr>
+          </thead>
+          <tbody id="summaryTableBody"></tbody>
+        </table>
       </div>
-    </main>
+    </div>
+  </main>
 
-    <footer>
-      <span>© 2025 CPU Scheduler. All rights reserved.</span>
-    </footer>
+  <footer>
+    <span>© 2025 CPU Scheduler. All rights reserved.</span>
+  </footer>
 
-    <script type="module" src="js/script.js"></script>
-  </body>
+  <script type="module" src="js/script.js"></script>
+</body>
+
 </html>
