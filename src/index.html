@@ -35,10 +35,10 @@
       <hr />
       <div class="selector-section">
         <select id="algoSelect">
-          <option value="fcfs">FCFS</option>
-          <option value="sjf">SJF</option>
-          <option value="priority">Priority</option>
-          <option value="rr">Round Robin (RR)</option>
+          <option value="fcfs" selected>FCFS</option>
+          <option value="sjf" disabled>SJF</option>
+          <option value="priority" disabled>Priority</option>
+          <option value="rr" disabled>Round Robin (RR)</option>
         </select>
 
         <span class="tooltip">
@@ -47,13 +47,7 @@
         </span>
       </div>
       <div class="slider-container" id="quantumContainer">
-        <label class="qu-label">Quantum Time: <span id="valueLabel">3</span></label>
 
-        <div class="quantum-slider-container">
-          <input class="Quantum-slider" type="range" id="quantum" min="1" max="15" value="3" />
-          <span class="slider-start">1</span>
-          <span class="slider-end">15</span>
-        </div>
       </div>
 
       <hr />
@@ -65,18 +59,14 @@
 
         <div class="row">
           <label class="pcb-label" for="arrivalTimeInput">AT</label>
-          <input id="arrivalTimeInput" class="input-width" type="number" min="0" value="3" />
+          <input id="arrivalTimeInput" class="input-width" type="number" min="0" value="0" />
         </div>
 
         <div class="row">
           <label class="pcb-label" for="burstInput">Burst</label>
-          <input id="burstInput" class="input-width" type="number" min="1" value="6" />
+          <input id="burstInput" class="input-width" type="number" min="1" value="2" />
         </div>
 
-        <div class="row">
-          <label class="pcb-label" for="priorityInput">Priority</label>
-          <input id="priorityInput" class="input-width" type="number" min="1" value="1" />
-        </div>
       </div>
       <hr />
 
@@ -99,7 +89,6 @@
             <th>PID</th>
             <th>AT</th>
             <th>Burst</th>
-            <th>Priority</th>
           </tr>
         </thead>
         <tbody id="ProcessTableBody"></tbody>
@@ -120,15 +109,11 @@
         <h3>Metrics Table</h3>
       </div>
       <hr />
-      <p class="qt-display">QT = <span id="quantumTimeValue">3</span></p>
       <div class="table-container">
         <table class="Metrics-table">
           <thead>
             <tr>
               <th>PID</th>
-              <th>AT</th>
-              <th>BT</th>
-              <th>Priority</th>
               <th>RT</th>
               <th>WT</th>
               <th>TT</th>
@@ -156,9 +141,9 @@
         <table id="summaryMetricsTable" class="summary">
           <thead>
             <tr>
-              <th>AVG. TAT</th>
-              <th>AVG. WT</th>
               <th>AVG. RT</th>
+              <th>AVG. WT</th>
+              <th>AVG. TAT</th>
             </tr>
           </thead>
           <tbody id="summaryTableBody"></tbody>
