@@ -349,8 +349,12 @@ input {
 
 /* ===== Tables ===== */
 #process-table,
-.summary {
+.Metrics-table
+ {
   margin-top: 10px;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
 }
 
 .Metrics-table {
@@ -364,16 +368,27 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
+#process-table th,
+#process-table td,
 .Metrics-table th,
 .Metrics-table td {
-  padding: 8px 12px;
-  white-space: nowrap;
+  padding: 10px 12px;
   text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
 }
+#process-table thead th,
+.Metrics-table thead th
+ {
+  font-weight: bold;
+}
+
 
 th,
 td {
   padding: 8px 12px;
   border-bottom: 1px solid #eeeeee;
 }
+
+
+
