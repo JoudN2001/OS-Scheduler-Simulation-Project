@@ -95,9 +95,7 @@ addProcess.addEventListener("click", (e) => {
     // Add Process FCFS OR SJF Algorithm non-preemptive
     default:
       console.log(INITIAL_PROCESSES);
-      AT.value = i;
       PID.value = `P${++i}`;
-      BT.value = i * 2;
       newRow.innerHTML = `
         <td>${PID.value}</td>
         <td>${AT.value}</td>
@@ -124,6 +122,14 @@ clearProcesses.addEventListener("click", (e) => {
   tableOfSummary.innerHTML = `<tbody>
         </tbody>
   `;
+  let triangleFill = document.getElementById("toggleIcon");
+  triangleFill.innerText = `▼`;
+  t++;
+  console.log();
+  document.querySelector(".group-content").classList.add("hidden");
+  tableOfSummary.innerHTML = `<tbody>
+          </tbody>
+    `;
   i = 0;
   AT.value = i;
   PID.value = `P1`;
@@ -133,28 +139,30 @@ clearProcesses.addEventListener("click", (e) => {
 
 //run algorthim
 runBtn.addEventListener("click", (e) => {
-  switch (selected) {
-    case "sjf":
-      console.log(selected);
-      break;
-    case "priority":
-      console.log(selected);
-      break;
-    case "rr":
-      console.log(selected);
-      break;
-    default:
-      let SolveFCFS = FCFS(INITIAL_PROCESSES);
-      SolveFCFS.solved.forEach((process) => {
-        tableOfMetrics.innerHTML += `<tr>
+  if (INITIAL_PROCESSES.length) {
+    switch (selected) {
+      case "sjf":
+        console.log(selected);
+        break;
+      case "priority":
+        console.log(selected);
+        break;
+      case "rr":
+        console.log(selected);
+        break;
+      default:
+        let SolveFCFS = FCFS(INITIAL_PROCESSES);
+        SolveFCFS.solved.forEach((process) => {
+          tableOfMetrics.innerHTML += `<tr>
             <td>${process.id}</td>
             <td>${process.responseTime}</td>
             <td>${process.waitingTime}</td>
             <td>${process.turnaroundTime}</td>
             </tr>
         `;
-      });
-  }
+        });
+    }
+  } else alert("Add Processes First");
 });
 
 // let SolveFCFS = FCFS(INITIAL_PROCESSES);
@@ -180,29 +188,33 @@ function getAvarage({ solved }) {
 // console.log(getAvarage(SolveRR));
 
 //Summary table
+console.log(INITIAL_PROCESSES);
 let t = 1;
 summaryBtn.addEventListener("click", (e) => {
-  if (t % 2) {
-    let triangleOutLine = document.getElementById("toggleIcon");
-    triangleOutLine.innerText = `△`;
-    t++;
-    document.querySelector(".group-content").classList.remove("hidden");
+  if (INITIAL_PROCESSES.length) {
+    if (t % 2) {
+      let triangleOutLine = document.getElementById("toggleIcon");
+      triangleOutLine.innerText = `△`;
+      t++;
+      document.querySelector(".group-content").classList.remove("hidden");
 
-    let SolveFCFS = FCFS(INITIAL_PROCESSES);
-    let avg = getAvarage(SolveFCFS);
-    tableOfSummary.innerHTML = `<tr>
-        <td>${avg.avgResponse}</td>
-        <td>${avg.avgWaiting}</td>
-        <td>${avg.avgTurnaround}</td>
-              </tr>
+      let SolveFCFS = FCFS(INITIAL_PROCESSES);
+      let avg = getAvarage(SolveFCFS);
+      tableOfSummary.innerHTML = `<tr>
+          <td>${avg.avgResponse}</td>
+          <td>${avg.avgWaiting}</td>
+          <td>${avg.avgTurnaround}</td>
+                </tr>
+      `;
+    } else {
+      let triangleFill = document.getElementById("toggleIcon");
+      triangleFill.innerText = `▼`;
+      t++;
+      console.log();
+      document.querySelector(".group-content").classList.add("hidden");
+      tableOfSummary.innerHTML = `<tbody>
+          </tbody>
     `;
-  } else {
-    let triangleFill = document.getElementById("toggleIcon");
-    triangleFill.innerText = `▼`;
-    t++;
-    document.querySelector(".group-content").classList.add("hidden");
-    tableOfSummary.innerHTML = `<tbody>
-        </tbody>
-  `;
-  }
+    }
+  } else alert("Add Processes First");
 });
