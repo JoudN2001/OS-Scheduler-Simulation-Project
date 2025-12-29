@@ -129,6 +129,30 @@ hr {
   -webkit-overflow-scrolling: touch;
 }
 
+.summary-group {
+  background-color: #00adb5;
+  border-radius: 18px;
+  padding: 14px 16px;
+}
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+.summary-name {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #eeeeee;
+}
+.summary-btn {
+  width: 30px;
+  height: 30px;
+  background-color: #00adb5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 /* ===== Typography & Labels ===== */
 .qu-label {
   margin-bottom: 5px;

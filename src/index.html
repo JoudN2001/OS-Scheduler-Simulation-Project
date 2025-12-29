@@ -21,10 +21,14 @@
         <h2>Description</h2>
       </div>
       <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus,
-        numquam adipisci commodi alias doloremque ipsam omnis enim dolorem
-        laboriosam, nihil obcaecati autem expedita delectus tenetur doloribus
-        nulla, eos iste ut?
+        This CPU Scheduler is a web-based simulation tool
+        that demonstrates common CPU scheduling algorithms.
+        Users can add processes with arrival time, burst time,
+        and other attributes depending on the selected algorithm.
+        The simulator generates a Gantt chart to visualize execution
+        order and calculates key performance metrics such as response time,
+        waiting time, turnaround time, and turnaround time averages to help
+        evaluate scheduling efficiency.
       </p>
     </div>
     <!--adding processes and chosing algorithm-->
@@ -124,32 +128,42 @@
       </div>
     </div>
 
-    <div class="container" id="summarySection">
+    <div class="container" id="summaryContainer">
       <div class="card-title">
         <h3>Summary</h3>
       </div>
       <hr />
-      <div class="summary-group-header" id="summaryHeader">
-        <span id="summaryGroupName">list PID`s here</span>
+      <div class="summary-group" id="summaryGroup">
+        <div class="summary-header" id="summaryHeader">
+          <span class="summary-name" id="summaryname">
+            (P1,P2,..,Pn)
+          </span>
+          <span class="summary-btn" id="summarybtn">
+            <button id="toggleSummaryBtn">
+              <span id="toggleIcon">&#9660;</span>
+            </button>
+          </span>
+        </div>
 
-        <button id="toggleSummaryBtn">
-          <span id="toggleIcon">&#9660;</span> <!--△ 	&#9651;	&#x25B3; -->
-        </button>
-      </div>
-
-      <div id="summaryContent" class="group-content hidden">
-        <table id="summaryMetricsTable" class="summary">
-          <thead>
-            <tr>
-              <th>AVG. RT</th>
-              <th>AVG. WT</th>
-              <th>AVG. TAT</th>
-            </tr>
-          </thead>
-          <tbody id="summaryTableBody"></tbody>
-        </table>
+        <div class="summary-content hidden" id="summaryContent">
+          <div class="summary-row">
+            <span>AVG. Rt</span>
+            <span id="avgRT">--</span>
+          </div>
+          <div class="summary-row">
+            <span>AVG. WT</span>
+            <span id="avgWT">--</span>
+          </div>
+          <div class="summary-row">
+            <span>AVG. TAT</span>
+            <span id="avgTAT">--</span>
+          </div>
+        </div>
       </div>
     </div>
+
+    </div>
+
   </main>
 
   <footer>
