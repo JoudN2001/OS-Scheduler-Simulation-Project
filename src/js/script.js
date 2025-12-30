@@ -7,6 +7,7 @@ const addProcess = document.getElementById("addProcessBtn");
 const clearProcesses = document.getElementById("clearProcessesBtn");
 const runBtn = document.getElementById("RunBtn");
 const summaryBtn = document.getElementById("toggleSummaryBtn");
+const summaryProcess = document.getElementById("summaryname");
 
 let PID = document.getElementById("pidInput");
 let AT = document.getElementById("arrivalTimeInput");
@@ -15,7 +16,7 @@ let Priority = document.getElementById("priorityInput");
 
 const tableOfProcess = document.getElementById("ProcessTableBody");
 const tableOfMetrics = document.getElementById("metricsTableBody");
-const tableOfSummary = document.getElementById("summaryTableBody");
+const tableOfSummary = document.getElementById("summaryContent");
 
 // Select Algorithm
 selectAlgorthim.addEventListener("change", (e) => {
@@ -119,18 +120,15 @@ clearProcesses.addEventListener("click", (e) => {
   tableOfMetrics.innerHTML = `<tbody>
         </tbody>
   `;
-  tableOfSummary.innerHTML = `<tbody>
-        </tbody>
-  `;
+  tableOfSummary.innerHTML = ``;
   let triangleFill = document.getElementById("toggleIcon");
   triangleFill.innerText = `▼`;
   t++;
   console.log();
-  document.querySelector(".group-content").classList.add("hidden");
-  tableOfSummary.innerHTML = `<tbody>
-          </tbody>
-    `;
+  // document.querySelector(".group-content").classList.add("hidden");
   i = 0;
+  s = 1;
+  summaryProcess.textContent = "Processes List";
   AT.value = i;
   PID.value = `P1`;
   BT.value = 2;
@@ -138,6 +136,8 @@ clearProcesses.addEventListener("click", (e) => {
 });
 
 //run algorthim
+let SolveFCFS;
+let s = 1;
 runBtn.addEventListener("click", (e) => {
   if (INITIAL_PROCESSES.length) {
     switch (selected) {
@@ -151,22 +151,27 @@ runBtn.addEventListener("click", (e) => {
         console.log(selected);
         break;
       default:
-        let SolveFCFS = FCFS(INITIAL_PROCESSES);
-        SolveFCFS.solved.forEach((process) => {
-          tableOfMetrics.innerHTML += `<tr>
-            <td>${process.id}</td>
-            <td>${process.responseTime}</td>
-            <td>${process.waitingTime}</td>
-            <td>${process.turnaroundTime}</td>
-            </tr>
-        `;
-        });
+        SolveFCFS = FCFS(INITIAL_PROCESSES);
+        let Processes = [];
+        if (s === 1) {
+          SolveFCFS.solved.forEach((process) => {
+            Processes.push(process.id);
+            tableOfMetrics.innerHTML += `<tr>
+              <td>${process.id}</td>
+              <td>${process.responseTime}</td>
+              <td>${process.waitingTime}</td>
+              <td>${process.turnaroundTime}</td>
+              </tr>
+          `;
+          });
+          s++;
+          summaryProcess.textContent = Processes.join(", ");
+        }
     }
   } else alert("Add Processes First");
 });
 
-// let SolveFCFS = FCFS(INITIAL_PROCESSES);
-// const SolveRR = RR(INITIAL_PROCESSES);
+// let SolveRR = RR(INITIAL_PROCESSES);
 
 function getAvarage({ solved }) {
   const avgWaiting = (
@@ -188,7 +193,6 @@ function getAvarage({ solved }) {
 // console.log(getAvarage(SolveRR));
 
 //Summary table
-console.log(INITIAL_PROCESSES);
 let t = 1;
 summaryBtn.addEventListener("click", (e) => {
   if (INITIAL_PROCESSES.length) {
@@ -196,25 +200,24 @@ summaryBtn.addEventListener("click", (e) => {
       let triangleOutLine = document.getElementById("toggleIcon");
       triangleOutLine.innerText = `△`;
       t++;
-      document.querySelector(".group-content").classList.remove("hidden");
-
-      let SolveFCFS = FCFS(INITIAL_PROCESSES);
       let avg = getAvarage(SolveFCFS);
-      tableOfSummary.innerHTML = `<tr>
-          <td>${avg.avgResponse}</td>
-          <td>${avg.avgWaiting}</td>
-          <td>${avg.avgTurnaround}</td>
-                </tr>
-      `;
+      let summaryDiv = document.createElement("div");
+      summaryDiv.innerHTML = `
+        <span>Avg Response Time</span>
+        <span></span>
+        <strong>${avg.avgResponse}</strong>
+        <span>Avg Waiting Time</span>
+        <span></span>
+        <strong>${avg.avgWaiting}</strong>
+        <span>Avg Turnaround Time</span>
+        <span></span>
+        <strong>${avg.avgTurnaround}</strong>
+            `;
+      tableOfSummary.append(summaryDiv);
     } else {
       let triangleFill = document.getElementById("toggleIcon");
       triangleFill.innerText = `▼`;
       t++;
-      console.log();
-      document.querySelector(".group-content").classList.add("hidden");
-      tableOfSummary.innerHTML = `<tbody>
-          </tbody>
-    `;
     }
   } else alert("Add Processes First");
 });

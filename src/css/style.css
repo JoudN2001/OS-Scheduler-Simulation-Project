@@ -134,17 +134,20 @@ hr {
   border-radius: 18px;
   padding: 14px 16px;
 }
+
 .summary-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 
 }
+
 .summary-name {
   font-size: 1.3rem;
   font-weight: bold;
   color: #eeeeee;
 }
+
 .summary-btn {
   width: 30px;
   height: 30px;
@@ -153,6 +156,7 @@ hr {
   align-items: center;
   justify-content: center;
 }
+
 /* ===== Typography & Labels ===== */
 .qu-label {
   margin-bottom: 5px;
@@ -349,8 +353,7 @@ input {
 
 /* ===== Tables ===== */
 #process-table,
-.Metrics-table
- {
+.Metrics-table {
   margin-top: 10px;
   width: 100%;
   table-layout: fixed;
@@ -360,7 +363,7 @@ input {
 .Metrics-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 500px;
+  /* min-width: 500px; */
 }
 
 table {
@@ -368,6 +371,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
 #process-table th,
 #process-table td,
 .Metrics-table th,
@@ -377,9 +381,9 @@ table {
   vertical-align: middle;
   white-space: nowrap;
 }
+
 #process-table thead th,
-.Metrics-table thead th
- {
+.Metrics-table thead th {
   font-weight: bold;
 }
 
@@ -390,5 +394,14 @@ td {
   border-bottom: 1px solid #eeeeee;
 }
 
-
-
+#summaryContent div {
+  margin: 5px 15px;
+  display: grid;
+  grid-template-areas:
+    "avg avg num"
+    "avg avg num"
+    "avg avg num"
+  ;
+  row-gap: 15px;
+  column-gap: 5px;
+}
