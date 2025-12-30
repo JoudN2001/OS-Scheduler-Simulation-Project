@@ -9,3 +9,7 @@
 
 1. Fix some HTML and CSS layout issues
 2. Update FCFS algorithem to return solve and gantt insted of solve only
+
+## Update No.3
+
+1. Implement RR algorithem
