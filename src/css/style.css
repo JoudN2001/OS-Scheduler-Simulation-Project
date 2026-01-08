@@ -405,3 +405,54 @@ td {
   row-gap: 15px;
   column-gap: 5px;
 }
+
+/* ===== Gantt Chart ===== */
+#gantt-chart-display {
+  width: 100%;
+  overflow-x: auto;
+  /* Allow scrolling for long charts */
+  padding-bottom: 30px;
+  /* Space for time labels */
+  margin-top: 20px;
+}
+
+.gantt-wrapper {
+  display: flex;
+  min-width: 100%;
+  /* Ensure it fills container */
+}
+
+.gantt-block {
+  height: 50px;
+  background-color: #00adb5;
+  border: 1px solid #eeeeee;
+  color: #eeeeee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  position: relative;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  /* Prevent shrinking, force scroll */
+  transition: width 0.3s;
+}
+
+.gantt-time {
+  position: absolute;
+  bottom: -25px;
+  right: 0;
+  color: #eeeeee;
+  font-size: 0.85rem;
+  transform: translateX(50%);
+  /* Center label on the line */
+}
+
+.gantt-start-time {
+  position: absolute;
+  bottom: -25px;
+  left: 0;
+  color: #eeeeee;
+  font-size: 0.85rem;
+  transform: translateX(-50%);
+}
