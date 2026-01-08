@@ -11,10 +11,6 @@ const runBtn = document.getElementById("RunBtn");
 const summaryBtn = document.getElementById("toggleSummaryBtn");
 const summaryProcess = document.getElementById("summaryname");
 
-let PID = document.getElementById("pidInput");
-let AT = document.getElementById("arrivalTimeInput");
-let BT = document.getElementById("burstInput");
-
 const tableOfProcess = document.getElementById("ProcessTableBody");
 const tableOfMetrics = document.getElementById("metricsTableBody");
 const tableOfSummary = document.getElementById("summaryContent");
@@ -29,7 +25,7 @@ selectAlgorthim.addEventListener("change", (e) => {
   const QT = document.querySelector(".QTNumber");
   const priorityCol = document.querySelector("#process-table thead tr");
   const priorityCol2 = document.querySelector(".input-column");
-  priorityCol2.innerHTML = `<div class="input-column">
+  priorityCol2.innerHTML = `
         <div class="row">
           <label class="pcb-label" for="pidInput">PID</label>
           <input id="pidInput" class="input-width" type="text" value="P1" disabled />
@@ -43,7 +39,7 @@ selectAlgorthim.addEventListener("change", (e) => {
         <div class="row">
           <label class="pcb-label" for="burstInput">Burst</label>
           <input id="burstInput" class="input-width" type="number" min="1" value="2" />
-        </div>`;
+          `;
   priorityCol.innerHTML = `<th>PID</th>
       <th>AT</th>
       <th>Burst</th>`;
@@ -85,10 +81,11 @@ selectAlgorthim.addEventListener("change", (e) => {
       const quantumSlider = document.getElementById("quantum");
       let quantumNum = document.getElementById("valueLabel");
       let quantumTableNum = document.getElementById("quantumTimeValue");
+
       quantumSlider.addEventListener("change", (e) => {
         quantumNum.textContent = e.target.value;
         quantumTableNum.textContent = quantumNum.innerText; // change only in run
-        quantumValue = quantumSlider.value;
+        quantumValue = parseInt(quantumSlider.value);
         console.log(quantumValue);
       });
       break;
@@ -112,37 +109,41 @@ selectAlgorthim.addEventListener("change", (e) => {
 let INITIAL_PROCESSES = [];
 let i = 0;
 addProcess.addEventListener("click", (e) => {
+  let PID = document.getElementById("pidInput");
+  let AT = document.getElementById("arrivalTimeInput");
+  let BT = document.getElementById("burstInput");
+  i++;
+  let currentPID = `P${i}`;
+  PID.value = `P${i + 1}`;
   let newRow = document.createElement("tr");
-  // Add Process Priority Algorithm preemptive
+  // Add Process Priority Algorithm
   if (selected === "priority") {
     let inputPriority = document.getElementById("priorityInput");
-    PID.value = `P${++i}`;
     newRow.innerHTML = `
-      <td>${PID.value}</td>
+      <td>${currentPID}</td>
       <td>${AT.value}</td>
       <td>${BT.value}</td>
       <td>${inputPriority.value}</td>
       `;
     tableOfProcess.append(newRow);
     INITIAL_PROCESSES.push({
-      id: PID.value,
+      id: currentPID,
       arrivalTime: parseInt(AT.value),
       burstTime: parseInt(BT.value),
-      burstTime: parseInt(inputPriority.value),
+      priority: parseInt(inputPriority.value),
     });
     console.log(INITIAL_PROCESSES);
   }
-  // Add Process Round Robin OR FCFS OR SJF Algorithm non-preemptive
+  // Add Process Round Robin OR FCFS OR SJF Algorithm
   else {
-    PID.value = `P${++i}`;
     newRow.innerHTML = `
-      <td>${PID.value}</td>
+      <td>${currentPID}</td>
       <td>${AT.value}</td>
       <td>${BT.value}</td>
       `;
     tableOfProcess.append(newRow);
     INITIAL_PROCESSES.push({
-      id: PID.value,
+      id: currentPID,
       arrivalTime: parseInt(AT.value),
       burstTime: parseInt(BT.value),
     });
@@ -153,6 +154,9 @@ addProcess.addEventListener("click", (e) => {
 // Clear all process
 let isRun = false;
 clearProcesses.addEventListener("click", (e) => {
+  let PID = document.getElementById("pidInput");
+  let AT = document.getElementById("arrivalTimeInput");
+  let BT = document.getElementById("burstInput");
   tableOfProcess.innerHTML = `<tbody>
         </tbody>
   `;
@@ -174,91 +178,52 @@ clearProcesses.addEventListener("click", (e) => {
 });
 
 // Run algorthim
-let SolveFCFS;
+let solvedData; // Unified variable for any algorithm result
 let s = 1;
 let Processes = [];
+
 runBtn.addEventListener("click", (e) => {
   if (INITIAL_PROCESSES.length) {
     if (!isRun) {
+      // 1. Solve based on selection
       switch (selected) {
         case "sjf":
           console.log(selected);
-          SolveFCFS = SJF(INITIAL_PROCESSES);
-          Processes = [];
-          if (s === 1) {
-            SolveFCFS.solved.forEach((process) => {
-              Processes.push(process.id);
-              tableOfMetrics.innerHTML += `<tr>
-                <td>${process.id}</td>
-                <td>${process.responseTime}</td>
-                <td>${process.waitingTime}</td>
-                <td>${process.turnaroundTime}</td>
-                </tr>
-            `;
-            });
-            s++;
-            summaryProcess.textContent = Processes.join(", ");
-          }
+          solvedData = SJF(INITIAL_PROCESSES);
           break;
         case "priority":
           console.log(selected);
-          SolvePriority = Priority(INITIAL_PROCESSES);
-          renderGanttChart(SolvePriority.gantt);
-          Processes = [];
-          if (s === 1) {
-            SolveFCFS.solved.forEach((process) => {
-              Processes.push(process.id);
-              tableOfMetrics.innerHTML += `<tr>
-                <td>${process.id}</td>
-                <td>${process.responseTime}</td>
-                <td>${process.waitingTime}</td>
-                <td>${process.turnaroundTime}</td>
-                </tr>
-            `;
-            });
-            s++;
-            summaryProcess.textContent = Processes.join(", ");
-          }
+          solvedData = Priority(INITIAL_PROCESSES);
           break;
         case "rr":
           console.log(selected);
-          SolveRR = RR(INITIAL_PROCESSES, quantumValue);
-          renderGanttChart(SolveRR.gantt);
-          Processes = [];
-          if (s === 1) {
-            SolveRR.solved.forEach((process) => {
-              Processes.push(process.id);
-              tableOfMetrics.innerHTML += `<tr>
-                <td>${process.id}</td>
-                <td>${process.responseTime}</td>
-                <td>${process.waitingTime}</td>
-                <td>${process.turnaroundTime}</td>
-                </tr>
-            `;
-            });
-            s++;
-            summaryProcess.textContent = Processes.join(", ");
-          }
+          solvedData = RR(INITIAL_PROCESSES, quantumValue);
           break;
-        default:
-          SolveFCFS = FCFS(INITIAL_PROCESSES);
-          renderGanttChart(SolveFCFS.gantt);
-          Processes = [];
-          if (s === 1) {
-            SolveFCFS.solved.forEach((process) => {
-              Processes.push(process.id);
-              tableOfMetrics.innerHTML += `<tr>
-                <td>${process.id}</td>
-                <td>${process.responseTime}</td>
-                <td>${process.waitingTime}</td>
-                <td>${process.turnaroundTime}</td>
-                </tr>
-            `;
-            });
-            s++;
-            summaryProcess.textContent = Processes.join(", ");
-          }
+        default: // FCFS
+          solvedData = FCFS(INITIAL_PROCESSES);
+          break;
       }
+
+      // 2. Render Gantt Chart (works for all)
+      renderGanttChart(solvedData.gantt);
+
+      // 3. Render Metrics Table
+      Processes = [];
+      if (s === 1) {
+        solvedData.solved.forEach((process) => {
+          Processes.push(process.id);
+          tableOfMetrics.innerHTML += `<tr>
+            <td>${process.id}</td>
+            <td>${process.responseTime}</td>
+            <td>${process.waitingTime}</td>
+            <td>${process.turnaroundTime}</td>
+            </tr>
+        `;
+        });
+        s++;
+        summaryProcess.textContent = Processes.join(", ");
+      }
+
       isRun = true;
     } else alert("Clear all Process before and run again");
   } else alert("Add Processes First");
@@ -284,13 +249,13 @@ function getAverage({ solved }) {
 // Summary table
 let t = 1;
 summaryBtn.addEventListener("click", (e) => {
-  if (INITIAL_PROCESSES.length) {
+  if (INITIAL_PROCESSES.length && solvedData) {
     let summaryDiv = document.createElement("div");
     if (t % 2) {
       let triangleOutLine = document.getElementById("toggleIcon");
       triangleOutLine.innerText = `△`;
       t++;
-      let avg = getAverage(SolveFCFS);
+      let avg = getAverage(solvedData);
       summaryDiv.innerHTML = `
         <span>Avg Response Time</span>
         <span></span>
@@ -320,7 +285,7 @@ function renderGanttChart(ganttData) {
   chartWrapper.className = "gantt-wrapper";
 
   // Scale factor: How wide (in pixels) should 1 unit of time be?
-  const timeUnitWidth = 30;
+  const timeUnitWidth = 45;
 
   ganttData.forEach((item, index) => {
     const block = document.createElement("div");
